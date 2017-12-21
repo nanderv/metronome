@@ -1,0 +1,27 @@
+# Format rules
+# First (non-commented) line has to supply base bpm. This will be used to scale lengths of bars.
+# After that, lines can either open scope, close scope, or define rhythm. The order in which lines are parsed to type is in that order.
+# Open scope lines can open one scope per line, and can only contain that. All other data will be ignored.
+# Close scope lines can close one scope per line, and may, optionally, contain the number of repeats of that scope.
+# Rhythm-defining lines. They have three required numbers, and one optional one:
+## Beats
+## Measure
+## BPM
+## Repeats
+Special rules: All non-conforming characters are ignored, and the file will parse, assuming it will still get the correct data on that line.
+
+Baserhythm:
+90
+
+Actual File:
+{
+ {
+  CHORUS:
+  7 8 90
+  4 4 90
+  7 8 90
+  13 16 90
+  } 1
+ } 11
+} 2
+7 8 90
