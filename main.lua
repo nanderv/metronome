@@ -73,13 +73,16 @@ love.load = function(arg)
 end
 
 love.update = function(dt)
+    if not STATE.rhythm[STATE.cur] then return end
     if STATE.timeSince == 0 then
         high:clone( ):play()
         STATE.count = STATE.count + 1
+        if not STATE.rhythm[STATE.cur] then return end
         print("HI", STATE.rhythm[STATE.cur][1], STATE.rhythm[STATE.cur][2], STATE.rhythm[STATE.cur][3])
     end
     STATE.timeSince = STATE.timeSince + dt
     local b = STATE.rhythm[STATE.cur]
+    if not b then return end
     local t = b[1] / b[2] * 4 * 60 / b[3]
     if STATE.timeSince > t then
         STATE.timeSince = 0
@@ -94,7 +97,10 @@ end
 
 love.draw = function()
     local b = STATE.rhythm[STATE.cur]
-
+    if not b then
+        love.graphics.print("FINISHED",10,10)
+        return
+    end
     first = true
     for j = 0, 40 do
         local b = STATE.rhythm[STATE.cur + j]
@@ -118,6 +124,7 @@ love.draw = function()
 
     end
     local b = STATE.rhythm[STATE.cur]
+
     local d = math.max(b[2], 8)
     local i = math.floor(STATE.timeSince / (60 * 4 / (d * b[3])))
 
